@@ -6,9 +6,13 @@ import { SendMailRequestDto } from '../../core/dtos/SendMailRequestDto';
 export class ResendMailService implements IMailService {
   private resend: Resend;
 
-  constructor() {
-    this.resend = new Resend(process.env.RESEND_API_KEY);
+ constructor() {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    throw new Error('RESEND_API_KEY environment değişkeni bulunamadı veya ayarlanmamış.');
   }
+  this.resend = new Resend(apiKey);
+}
 
   async sendEmail(request: SendMailRequestDto): Promise<void> {
     const emailTo = process.env.EMAIL_TO;
