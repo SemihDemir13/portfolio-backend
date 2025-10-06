@@ -16,3 +16,7 @@ app.use('/api/mail', mailRoutes);
 app.listen(port, () => {
   console.log(`✅ Node.js Backend sunucusu http://localhost:${port} adresinde çalışıyor.`);
 });
+
+app.get('/', (req, res) => {
+  res.status(200).send('Backend is alive!');
+});
